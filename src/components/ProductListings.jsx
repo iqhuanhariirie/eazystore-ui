@@ -7,11 +7,11 @@ export default function ProductListings({products}) {
                 {products.length > 0 ? (
                     products.map((product) => (
                         <Tilt
+                        key={product.productId}
                         tiltMaxAngleX={15}
                         tiltMaxAngleY={15}
-                        transitionSpeed={1000}
-                        >
-                            <ProductCard key={product.productId} product={product} />
+                        transitionSpeed={1000}>
+                            <ProductCard product={product} />
                         </Tilt>
                     ))
                 ) : (
