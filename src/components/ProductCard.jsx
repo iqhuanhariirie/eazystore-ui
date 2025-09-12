@@ -1,4 +1,5 @@
 import Price from './Price';
+import { Button } from './ui/button';
 export default function ProductCard({ product }) {
     return (
         <div className="product-card">
@@ -13,7 +14,7 @@ export default function ProductCard({ product }) {
                 <p className="product-card-description">{product.description}</p>
                 <div className="product-card-footer">
                     <span className="product-card-price"><Price currency="RM" price={product.price} /></span>
-                    <button className="product-card-button">Add to Cart</button>
+                    <Button>Add to Cart</Button>
                 </div>
 
             </div>
