@@ -14,7 +14,7 @@ export default function ProductCard({ product }) {
                 <p className="product-card-description">{product.description}</p>
                 <div className="product-card-footer">
                     <span className="product-card-price"><Price currency="RM" price={product.price} /></span>
-                    <Button>Add to Cart</Button>
+                    <Button variant="pill">Add to Cart</Button>
                 </div>
 
             </div>
