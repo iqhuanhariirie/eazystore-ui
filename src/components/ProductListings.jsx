@@ -1,5 +1,6 @@
 import ProductCard from './ProductCard'
 import Tilt from 'react-parallax-tilt';
+import parallax from 'react-parallax-tilt';
 export default function ProductListings({products}) {
     return (
         <div className="product-listings-container">
@@ -8,9 +9,9 @@ export default function ProductListings({products}) {
                     products.map((product) => (
                         <Tilt
                         key={product.productId}
-                        tiltMaxAngleX={15}
-                        tiltMaxAngleY={15}
-                        transitionSpeed={1000}>
+                        tiltMaxAngleX={7}
+                        tiltMaxAngleY={7}
+                        transitionSpeed={500}>
                             <ProductCard product={product} />
                         </Tilt>
                     ))
