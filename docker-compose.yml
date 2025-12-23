@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  eazystore-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: eazystore-ui
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+    networks:
+      - eazystore-network
+
+networks:
+  eazystore-network:
+    driver: bridge
+
