@@ -318,6 +318,117 @@ body {
     color: var(--primary-color);
 }
 
+/* ── Add Product Form ──────────────────────────────── */
+.add-product-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+.add-product-form {
+    background-color: var(--card-bg);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 20px 20px 60px #d2d5d6, -20px -20px 60px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.add-product-error {
+    background-color: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-label {
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--text-dark);
+}
+
+.form-input {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 0.65rem 1rem;
+    font-size: 0.95rem;
+    font-family: var(--font-family);
+    color: var(--text-dark);
+    background-color: #fff;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-input:focus {
+    border-color: var(--primary-color);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-file-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.form-file-input {
+    display: none;
+}
+
+.form-file-label {
+    display: inline-block;
+    padding: 0.5rem 1.25rem;
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.form-file-label:hover {
+    background-color: var(--hover-color);
+}
+
+.form-file-name {
+    font-size: 0.85rem;
+    color: #6b7280;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 240px;
+}
+
+.form-image-preview {
+    margin-top: 0.75rem;
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 2px solid var(--border-color);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
