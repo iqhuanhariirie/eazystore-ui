@@ -1,8 +1,13 @@
 import Price from './Price';
 import { Button } from './ui/button';
-export default function ProductCard({ product }) {
+import ProductCardMenu from './ProductCardMenu';
+
+export default function ProductCard({ product, isAdminView, onDelete }) {
     return (
         <div className="product-card">
+            {isAdminView && (
+                <ProductCardMenu product={product} onDelete={onDelete} />
+            )}
             <div className="product-card-image-container">
                 <img
                     src={product.imageUrl}
@@ -16,7 +21,6 @@ export default function ProductCard({ product }) {
                     <span className="product-card-price"><Price currency="RM" price={product.price} /></span>
                     <Button variant="pill">Add to Cart</Button>
                 </div>
-
             </div>
         </div>
     );
