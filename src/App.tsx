@@ -1,9 +1,9 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Home from './components/Home'
-import AddProduct from './pages/AddProduct'
-import EditProduct from './pages/EditProduct'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Home from './components/Home';
+import AddProduct from './pages/AddProduct';
+import EditProduct from './pages/EditProduct';
 
 function App() {
   return (
@@ -19,4 +19,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
