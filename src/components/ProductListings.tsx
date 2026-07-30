@@ -1,6 +1,6 @@
-import ProductCard from './ProductCard';
+import ProductCard from './ProductCard.tsx';
 import Tilt from 'react-parallax-tilt';
-import { useDeleteProduct, useProducts } from '../hooks/productQueries';
+import { useDeleteProduct, useProducts } from '../hooks/productQueries.ts';
 
 interface ProductListingsProps {
   isAdminView: boolean;

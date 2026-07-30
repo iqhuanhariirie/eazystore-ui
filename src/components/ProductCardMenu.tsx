@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { MoreVertical, Pencil, Trash2 } from 'lucide-react';
-import { Button } from './ui/button';
+import { Button } from './ui/button.tsx';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from './ui/dropdown-menu';
+} from './ui/dropdown-menu.tsx';
 import type { Product } from '@/types/product';
 
 interface ProductCardMenuProps {

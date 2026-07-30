@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import PageTitle from './PageTitle';
+import PageTitle from './PageTitle.tsx';
 
 interface PageHeadingProps {
   title: string;

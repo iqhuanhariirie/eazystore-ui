@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Home from './components/Home';
-import AddProduct from './pages/AddProduct';
-import EditProduct from './pages/EditProduct';
+import Header from './components/Header.tsx';
+import Footer from './components/Footer.tsx';
+import Home from './components/Home.tsx';
+import AddProduct from './pages/AddProduct.tsx';
+import EditProduct from './pages/EditProduct.tsx';
 
 function App() {
   return (

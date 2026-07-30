@@ -5,7 +5,7 @@ import {
   fetchProduct,
   fetchProducts,
   updateProduct,
-} from '../api/products';
+} from '../api/products.ts';
 import type { ProductPayload } from '@/types/product';
 
 export const productKeys = {

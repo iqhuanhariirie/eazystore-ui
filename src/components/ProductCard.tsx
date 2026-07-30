@@ -1,6 +1,6 @@
-import Price from './Price';
-import { Button } from './ui/button';
-import ProductCardMenu from './ProductCardMenu';
+import Price from './Price.tsx';
+import { Button } from './ui/button.tsx';
+import ProductCardMenu from './ProductCardMenu.tsx';
 import type { Product } from '@/types/product';
 
 interface ProductCardProps {

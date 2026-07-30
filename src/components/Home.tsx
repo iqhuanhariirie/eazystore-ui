@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import PageHeading from './PageHeading';
-import ProductListings from './ProductListings';
-import { Button } from './ui/button';
+import PageHeading from './PageHeading.tsx';
+import ProductListings from './ProductListings.tsx';
+import { Button } from './ui/button.tsx';
 
 export default function Home() {
   const [isAdminView, setIsAdminView] = useState(true);

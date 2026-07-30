@@ -2,15 +2,15 @@ import { useState, type ChangeEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '../components/ui/button';
-import PageHeading from '../components/PageHeading';
-import { useCreateProduct } from '../hooks/productQueries';
+import { Button } from '../components/ui/button.tsx';
+import PageHeading from '../components/PageHeading.tsx';
+import { useCreateProduct } from '../hooks/productQueries.ts';
 import {
   imageFileSchema,
   productFormSchema,
   type ProductFormInput,
   type ProductFormOutput,
-} from '../schemas/productSchema';
+} from '../schemas/productSchema.ts';
 
 const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
