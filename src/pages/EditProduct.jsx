@@ -4,11 +4,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import PageHeading from '../components/PageHeading';
+import { useProduct, useUpdateProduct } from '../hooks/productQueries';
 import { imageFileSchema, productFormSchema } from '../schemas/productSchema';
 
 const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
-const API_URL = import.meta.env.VITE_API_URL;
 
 export default function EditProduct() {
     const { id } = useParams();
@@ -26,28 +26,21 @@ export default function EditProduct() {
     const [imageFile, setImageFile] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
     const [imageError, setImageError] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [fetching, setFetching] = useState(true);
     const [submitError, setSubmitError] = useState(null);
+    const { data: product, isLoading, isError, error } = useProduct(id);
+    const updateProduct = useUpdateProduct();
 
     useEffect(() => {
-        fetch(`${API_URL}/api/products/${id}`)
-            .then((res) => {
-                if (!res.ok) throw new Error('Failed to load product');
-                return res.json();
-            })
-            .then((product) => {
-                reset({
-                    name: product.name,
-                    description: product.description,
-                    price: String(product.price),
-                });
-                setExistingImageUrl(product.imageUrl);
-                setImagePreview(product.imageUrl);
-            })
-            .catch((err) => setSubmitError(err.message))
-            .finally(() => setFetching(false));
-    }, [id, reset]);
+        if (!product) return;
+
+        reset({
+            name: product.name,
+            description: product.description,
+            price: String(product.price),
+        });
+        setExistingImageUrl(product.imageUrl);
+        setImagePreview(product.imageUrl);
+    }, [product, reset]);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -80,7 +73,6 @@ export default function EditProduct() {
     };
 
     const onSubmit = async (data) => {
-        setLoading(true);
         setSubmitError(null);
         setImageError(null);
 
@@ -91,34 +83,41 @@ export default function EditProduct() {
 
             if (!imageUrl) {
                 setImageError('Image is required');
-                setLoading(false);
                 return;
             }
 
-            const res = await fetch(`${API_URL}/api/products/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    name: data.name,
-                    description: data.description,
-                    price: data.price,
-                    imageUrl,
-                }),
-            });
-
-            if (!res.ok) throw new Error('Failed to update product');
-            navigate('/');
+            updateProduct.mutate(
+                {
+                    id,
+                    product: {
+                        name: data.name,
+                        description: data.description,
+                        price: data.price,
+                        imageUrl,
+                    },
+                },
+                {
+                    onSuccess: () => navigate('/'),
+                    onError: (err) => setSubmitError(err.message),
+                }
+            );
         } catch (err) {
             setSubmitError(err.message);
-        } finally {
-            setLoading(false);
         }
     };
 
-    if (fetching) {
+    if (isLoading) {
         return (
             <div className="add-product-container">
                 <p className="product-listings-empty">Loading product...</p>
+            </div>
+        );
+    }
+
+    if (isError) {
+        return (
+            <div className="add-product-container">
+                <p className="product-listings-empty">Error: {error.message}</p>
             </div>
         );
     }
@@ -219,8 +218,8 @@ export default function EditProduct() {
                     >
                         Cancel
                     </Button>
-                    <Button type="submit" variant="pill" disabled={loading}>
-                        {loading ? 'Saving...' : 'Save Changes'}
+                    <Button type="submit" variant="pill" disabled={updateProduct.isPending}>
+                        {updateProduct.isPending ? 'Saving...' : 'Save Changes'}
                     </Button>
                 </div>
             </form>

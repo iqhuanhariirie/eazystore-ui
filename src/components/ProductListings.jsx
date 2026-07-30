@@ -1,45 +1,19 @@
-import { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
 import Tilt from 'react-parallax-tilt';
-
-const API_URL = import.meta.env.VITE_API_URL;
+import { useDeleteProduct, useProducts } from '../hooks/productQueries';
 
 export default function ProductListings({ isAdminView }) {
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { data: products = [], isLoading, isError, error } = useProducts();
+    const deleteProduct = useDeleteProduct();
 
-    const fetchProducts = () => {
-        setLoading(true);
-        setError(null);
-        fetch(`${API_URL}/api/products`)
-            .then((res) => {
-                if (!res.ok) throw new Error('Failed to fetch products');
-                return res.json();
-            })
-            .then((data) => setProducts(data))
-            .catch((err) => setError(err.message))
-            .finally(() => setLoading(false));
+    const handleDelete = (productId) => {
+        deleteProduct.mutate(productId, {
+            onError: (err) => alert(err.message),
+        });
     };
 
-    useEffect(() => {
-        fetchProducts();
-    }, []);
-
-    const handleDelete = async (productId) => {
-        try {
-            const res = await fetch(`${API_URL}/api/products/${productId}`, {
-                method: 'DELETE',
-            });
-            if (!res.ok) throw new Error('Failed to delete product');
-            setProducts((prev) => prev.filter((p) => p.id !== productId));
-        } catch (err) {
-            alert(err.message);
-        }
-    };
-
-    if (loading) return <p className="product-listings-empty">Loading products...</p>;
-    if (error) return <p className="product-listings-empty">Error: {error}</p>;
+    if (isLoading) return <p className="product-listings-empty">Loading products...</p>;
+    if (isError) return <p className="product-listings-empty">Error: {error.message}</p>;
 
     return (
         <div className="product-listings-container">

@@ -4,11 +4,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import PageHeading from '../components/PageHeading';
+import { useCreateProduct } from '../hooks/productQueries';
 import { imageFileSchema, productFormSchema } from '../schemas/productSchema';
 
 const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
-const API_URL = import.meta.env.VITE_API_URL;
 
 export default function AddProduct() {
     const navigate = useNavigate();
@@ -23,8 +23,8 @@ export default function AddProduct() {
     const [imageFile, setImageFile] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
     const [imageError, setImageError] = useState(null);
-    const [loading, setLoading] = useState(false);
     const [submitError, setSubmitError] = useState(null);
+    const createProduct = useCreateProduct();
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -56,30 +56,26 @@ export default function AddProduct() {
             return;
         }
 
-        setLoading(true);
         setSubmitError(null);
         setImageError(null);
 
         try {
             const imageUrl = await uploadToCloudinary(imageResult.data);
 
-            const res = await fetch(`${API_URL}/api/products`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
+            createProduct.mutate(
+                {
                     name: data.name,
                     description: data.description,
                     price: data.price,
                     imageUrl,
-                }),
-            });
-
-            if (!res.ok) throw new Error('Failed to save product');
-            navigate('/');
+                },
+                {
+                    onSuccess: () => navigate('/'),
+                    onError: (err) => setSubmitError(err.message),
+                }
+            );
         } catch (err) {
             setSubmitError(err.message);
-        } finally {
-            setLoading(false);
         }
     };
 
@@ -182,8 +178,8 @@ export default function AddProduct() {
                     >
                         Cancel
                     </Button>
-                    <Button type="submit" variant="pill" disabled={loading}>
-                        {loading ? 'Saving...' : 'Add Product'}
+                    <Button type="submit" variant="pill" disabled={createProduct.isPending}>
+                        {createProduct.isPending ? 'Saving...' : 'Add Product'}
                     </Button>
                 </div>
             </form>
