@@ -379,6 +379,15 @@ body {
     font-size: 0.9rem;
 }
 
+.form-field-error {
+    color: #dc2626;
+    font-size: 0.8rem;
+}
+
+.form-input[aria-invalid="true"] {
+    border-color: #dc2626;
+}
+
 .form-group {
     display: flex;
     flex-direction: column;
