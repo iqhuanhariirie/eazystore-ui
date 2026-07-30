@@ -139,6 +139,11 @@ export default function AddProduct() {
             id="price"
             type="number"
             {...register('price')}
+            onKeyDown={(e) => {
+              if (['e', 'E', '+', '-'].includes(e.key)) {
+                e.preventDefault();
+              }
+            }}
             aria-invalid={!!errors.price}
             step="0.01"
             className="form-input"

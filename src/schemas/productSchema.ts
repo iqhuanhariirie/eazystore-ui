@@ -6,7 +6,7 @@ const priceField = z
   .min(1, 'Price is required')
   .refine((val) => !Number.isNaN(Number(val)), 'Price must be a number')
   .refine(
-    (val) => /^\d+(\.\d{1,2})?$/.test(val),
+    (val) => /^-?\d+(\.\d{1,2})?$/.test(val),
     'Price must have at most 2 decimal places'
   )
   .transform((val) => Number(val))
